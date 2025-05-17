@@ -2,7 +2,7 @@
 const colorSpaceContainer = document.querySelector(".container")
 const labelElement = document.querySelector("#sizeLabel")
 
-
+// Creates equally sized divs, that are appropriately scaled depending on the grid size
 function createDivs(n){
     colorSpaceContainer.innerHTML = ''
     labelElement.textContent = (`Grid size (${n}^2)`)
@@ -16,17 +16,18 @@ function createDivs(n){
     }
     
 }
-
+// Default grid initialization
 createDivs(50)
 
+// Reads input from the slider
 let gridSize = document.getElementById("gridSize")
 gridSize.addEventListener("input", () => {
     createDivs(gridSize.value);
     
 });
 
+// Check if mouse is held down
 let isDrawing = false
-
 document.addEventListener("mousedown", () => isDrawing = true);
 document.addEventListener("mouseup", () => isDrawing = false);
 
@@ -37,6 +38,7 @@ colorSpaceContainer.addEventListener("mouseover", (div) => {
     }
 });
 
+// Also allows just clicking the element
 colorSpaceContainer.addEventListener("click", (div) => {
     if (div.target.classList.contains("colorSpace")) {
         div.target.style.backgroundColor = "black";
@@ -44,5 +46,11 @@ colorSpaceContainer.addEventListener("click", (div) => {
         
     }
 });
+
+// Prevents the container elements from being dragged, that would interrupt drawing
+colorSpaceContainer.addEventListener("dragstart", (div) => {
+    div.preventDefault();
+});
+
 
 
